@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>aperteworkflow-core</artifactId>
+        <groupId>org.aperteworkflow</groupId>
+        <version>0.1</version>
+    </parent>
+
+    <groupId>org.aperteworkflow.contrib</groupId>
+    <name>contrib-plugins</name>
+    <description>Aperte Workflow OSGi contrib Plugins</description>
+
+    <packaging>pom</packaging>
+    <artifactId>contrib-plugins</artifactId>
+    <version>0.1</version>
+		
+    <!--
+<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jbpm.version>4.2</jbpm.version>
+        <spring.version>3.0.5.RELEASE</spring.version>
+        <vaadin.version>6.7.4</vaadin.version>
+        <hibernate.version>3.6.6.Final</hibernate.version>
+        <postgres.version>8.4-702.jdbc4</postgres.version>
+        <junit.version>4.8.2</junit.version>
+        <liferay.version>6.0.6</liferay.version>
+    </properties>
+-->
+    <modules>
+        <module>document-provider-registry</module>
+        <module>doclist-widget</module>
+        <module>cmis-document-provider</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>1.4.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>pl.net.bluesoft</groupId>
+            <artifactId>util</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+<!--
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>jar</goal>
+                                <goal>test-jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                        <debug>true</debug>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>jboss-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.com/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>maven-repository</id>
+            <name>maven Repository</name>
+            <url>http://repo1.maven.org/maven2/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>atlassian</id>
+            <name>atlassian</name>
+            <url>http://maven.atlassian.com/repository/public</url>
+        </repository>
+        <repository>
+            <id>codehaus-release-repo</id>
+            <name>Codehaus Release Repo</name>
+            <url>http://repository.codehaus.org</url>
+        </repository>
+        <repository>
+            <id>jboss-repos</id>
+            <name>jboss-repos</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/</url>
+        </repository>
+        <repository>
+            <id>jboss-public</id>
+            <name>jboss-public</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>jboss-releases</id>
+            <name>jboss-releases</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>jboss-snapshots</id>
+            <url>http://snapshots.jboss.org/maven2</url>
+        </repository>
+        <repository>
+            <id>vaadin-snapshots</id>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+        </repository>
+        <repository>
+            <id>vaadin-releases</id>
+            <url>http://oss.sonatype.org/content/repositories/vaadin-releases/</url>
+        </repository>
+        <repository>
+            <id>vaadin-addons</id>
+            <url>http://maven.vaadin.com/vaadin-addons</url>
+        </repository>
+    </repositories>
+-->
+</project>
