@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cmis-document-provider</artifactId>
+    <artifactId>liferay-document-provider</artifactId>
     <version>0.1</version>
     <packaging>bundle</packaging>
-    <name>cmis-document-provider</name>
+    <name>liferay-document-provider</name>
 
     <dependencies>
         <dependency>
@@ -26,14 +26,20 @@
             <groupId>org.aperteworkflow.contrib</groupId>
             <version>0.1</version>
             <scope>provided</scope>
-            <!-- provided by OSGi bundle -->
+
         </dependency>
         <dependency>
-            <artifactId>cmis-interface</artifactId>
-            <groupId>org.aperteworkflow</groupId>
-            <version>0.1</version>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>portal-service</artifactId>
+            <version>6.1.0</version>
+            <scope>provided</scope>
         </dependency>
-        <!-- cmis library deps - apache chemistry -->
+        <dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>portal-impl</artifactId>
+            <version>6.1.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -55,20 +61,29 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            org.aperteworkflow.contrib.document.providers.cmis
+                            org.aperteworkflow.contrib.document.providers.liferay,
                         </Export-Package>
                         <Import-Package>
+                            org.osgi.framework,
+                            com.liferay.portal.kernel.exception;version=!,
+                            com.liferay.portlet.documentlibrary;version=!,
+                            com.liferay.portlet.documentlibrary.service;version=!,
+                            com.liferay.portal.service;version=!,
+                            com.liferay.portlet.documentlibrary.model;version=!,
+                            com.liferay.portal.kernel.util;version=!,
+                            com.liferay.portal.model;version=!,
+                            com.liferay.portlet.documentlibrary.util.comparator;version=!,
                             org.apache.commons.collections.comparators;version=!,
                             org.w3c.dom,
                             *;resolution:=optional
                         </Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
-                        <Bundle-SymbolicName>org.aperteworkflow.contrib.document.providers.cmis</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>org.aperteworkflow.contrib.document.providers.liferay</Bundle-SymbolicName>
                         <Bundle-Version>0.1</Bundle-Version>
                         <Embed-Directory>lib</Embed-Directory>
                         <Embed-Transitive>true</Embed-Transitive>
                         <Bundle-Activator>
-                            org.aperteworkflow.contrib.document.providers.cmis.CmisDocumentProviderManagerActivator
+                            org.aperteworkflow.contrib.document.providers.liferay.LiferayDocumentProviderManagerActivator
                         </Bundle-Activator>
                     </instructions>
                 </configuration>

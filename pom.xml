@@ -33,6 +33,7 @@
         <module>document-provider-registry</module>
         <module>doclist-widget</module>
         <module>cmis-document-provider</module>
+        <module>liferay-document-provider</module>
     </modules>
 
     <dependencies>

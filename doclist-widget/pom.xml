@@ -28,6 +28,18 @@
             <version>${vaadin.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.chemistry.opencmis</groupId>
+            <artifactId>chemistry-opencmis-client-impl</artifactId>
+            <version>0.2.0-incubating</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.xml.ws</groupId>
+                    <artifactId>jaxws-rt</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!--<dependency>-->
             <!--<artifactId>cmis-interface</artifactId>-->
             <!--<groupId>org.aperteworkflow</groupId>-->
@@ -82,7 +94,7 @@
                         <Embed-Directory>lib</Embed-Directory>
                         <Embed-Transitive>true</Embed-Transitive>
                         <ProcessTool-Widget-Enhancement>org.aperteworkflow.contrib.widgets.doclist.DocumentListWidget</ProcessTool-Widget-Enhancement>
-                        <!--<ProcessTool-I18N-Property>doclist-messages</ProcessTool-I18N-Property>-->
+                        <ProcessTool-I18N-Property>doclist-messages</ProcessTool-I18N-Property>
                     </instructions>
                 </configuration>
             </plugin>
