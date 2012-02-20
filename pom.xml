@@ -33,7 +33,9 @@
         <module>document-provider-registry</module>
         <module>doclist-widget</module>
         <module>cmis-document-provider</module>
-        <module>liferay-document-provider</module>
+        <module>liferay-6.1-document-provider</module>
+        <module>liferay-6.0-document-provider</module>
+        <module>googledocs-document-provider</module>
     </modules>
 
     <dependencies>

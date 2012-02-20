@@ -86,7 +86,8 @@
                             org.aperteworkflow.contrib.widgets.doclist
                         </Export-Package>
                         <Import-Package>
-                            *
+                            org.aperteworkflow.contrib.document.providers.manager;version=!,
+                            *;resolution:=optional
                         </Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
                         <Bundle-SymbolicName>org.aperteworkflow.contrib.widgets.doclist</Bundle-SymbolicName>

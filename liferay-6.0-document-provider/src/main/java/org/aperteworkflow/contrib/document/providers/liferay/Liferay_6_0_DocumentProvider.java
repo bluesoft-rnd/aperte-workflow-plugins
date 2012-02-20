@@ -3,7 +3,6 @@ package org.aperteworkflow.contrib.document.providers.liferay;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.User;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserServiceUtil;
@@ -13,8 +12,6 @@ import com.liferay.portlet.documentlibrary.model.DLFolder;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFolderLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.util.comparator.RepositoryModelCreateDateComparator;
-import com.liferay.portlet.dynamicdatamapping.storage.Fields;
 import org.aperteworkflow.contrib.document.providers.manager.Document;
 import org.aperteworkflow.contrib.document.providers.manager.DocumentImpl;
 import org.aperteworkflow.contrib.document.providers.manager.DocumentProvider;
@@ -35,7 +32,7 @@ import java.util.Map;
  * Time: 2:40 PM
  */
 
-public class LiferayDocumentProvider implements DocumentProvider {
+public class Liferay_6_0_DocumentProvider implements DocumentProvider {
 
 
     public static final String DEFAULT_GROUP_NAME = "Guest";
@@ -95,9 +92,7 @@ public class LiferayDocumentProvider implements DocumentProvider {
         byte[] content = doc.getContent();
 
         try {
-            String mimeType = "";
-            long fileEntryTypeId = 0;
-            DLFileEntryLocalServiceUtil.addFileEntry(userId, groupId, groupId, folderId, filename, mimeType, fileTitle, "description", "changelog", fileEntryTypeId, new HashMap<String, Fields>(), null, new ByteArrayInputStream(content), content.length, new ServiceContext());
+            DLFileEntryLocalServiceUtil.addFileEntry(userId, groupId, folderId, filename, fileTitle, "description", "changelog", "", new ByteArrayInputStream(content), content.length, new ServiceContext());
 //        TODO: exception handling
         } catch (PortalException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -111,12 +106,11 @@ public class LiferayDocumentProvider implements DocumentProvider {
     public Collection<Document> getDocuments(String path) {
         Collection<Document> docs = new LinkedList<Document>();
         try {
-            Collection<DLFileEntry> fileEntries = DLFileEntryLocalServiceUtil.getFileEntries(groupId, folderId, 0, 10, new RepositoryModelCreateDateComparator());
+            Collection<DLFileEntry> fileEntries = DLFileEntryLocalServiceUtil.getFileEntries(groupId, folderId);
             for (DLFileEntry dlfe : fileEntries) {
-                long repositoryId = dlfe.getRepositoryId();
                 byte[] content = null;
                 try {
-                    content = IOUtils.slurp(DLFileEntryLocalServiceUtil.getFileAsStream(userId, dlfe.getFileEntryId(), dlfe.getVersion(), false));
+                    content = IOUtils.slurp(DLFileEntryLocalServiceUtil.getFileAsStream(companyId, userId, groupId, folderId, dlfe.getName(), dlfe.getVersion()));
                 } catch (PortalException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 } catch (IOException e) {
@@ -134,21 +128,8 @@ public class LiferayDocumentProvider implements DocumentProvider {
     private DLFolder createDLFolder(String folderName) throws Exception {
 
         ServiceContext serviceContext = new ServiceContext();
-        return DLFolderLocalServiceUtil.addFolder(userId, groupId, groupId, false, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
+        return DLFolderLocalServiceUtil.addFolder(userId, groupId,  DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
                 folderName, StringPool.BLANK, serviceContext);
     }
 
-    private DLFileEntry createDLFile(DLFolder folder, String fileName, byte[] content) throws Exception {
-        if (null == folder) {
-            return null;
-        }
-        String description = StringPool.BLANK;
-        String extraSettings = StringPool.BLANK;
-
-        ServiceContext serviceContext = new ServiceContext();
-
-        String mimeType = URLConnection.guessContentTypeFromName(fileName);
-        long fileEntryTypeId = 0;
-        return DLFileEntryLocalServiceUtil.addFileEntry(userId, groupId, folderId, folderId, fileName, mimeType, fileName, "description", "changelog", fileEntryTypeId, new HashMap<String, Fields>(), null, new ByteArrayInputStream(content), content.length, new ServiceContext());
-    }
 }

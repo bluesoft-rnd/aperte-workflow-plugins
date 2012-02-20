@@ -9,7 +9,7 @@ import pl.net.bluesoft.rnd.util.func.Func;
 /**
  * @author tlipski@bluesoft.net.pl
  */
-public class LiferayDocumentProviderManagerActivator implements BundleActivator {
+public class Liferay_6_1_DocumentProviderManagerActivator implements BundleActivator {
 
 
     private DocumentProviderRegistry registry;
@@ -18,10 +18,10 @@ public class LiferayDocumentProviderManagerActivator implements BundleActivator 
     public void start(BundleContext bundleContext) throws Exception {
         registry = (DocumentProviderRegistry) bundleContext.getService(bundleContext.getServiceReference(
                 DocumentProviderRegistry.class.getName()));
-        registry.registerProvider("liferay", new Func<DocumentProvider>() {
+        registry.registerProvider("liferay-6.1", new Func<DocumentProvider>() {
             @Override
             public DocumentProvider invoke() {
-                return new LiferayDocumentProvider();
+                return new Liferay_6_1_DocumentProvider();
             }
         });
     }
@@ -30,6 +30,6 @@ public class LiferayDocumentProviderManagerActivator implements BundleActivator 
     public void stop(BundleContext bundleContext) throws Exception {
         DocumentProviderRegistry registry = (DocumentProviderRegistry) bundleContext.getService(bundleContext.getServiceReference(
                 DocumentProviderRegistry.class.getName()));
-       registry.unregisterProvider("liferay");
+       registry.unregisterProvider("liferay-6.1");
     }
 }

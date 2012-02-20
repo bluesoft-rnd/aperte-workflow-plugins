@@ -9,10 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>liferay-document-provider</artifactId>
-    <version>0.1</version>
-    <packaging>bundle</packaging>
-    <name>liferay-document-provider</name>
+    <artifactId>googledocs-document-provider</artifactId>
 
     <dependencies>
         <dependency>
@@ -26,19 +23,6 @@
             <groupId>org.aperteworkflow.contrib</groupId>
             <version>0.1</version>
             <scope>provided</scope>
-
-        </dependency>
-        <dependency>
-            <groupId>com.liferay.portal</groupId>
-            <artifactId>portal-service</artifactId>
-            <version>6.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.liferay.portal</groupId>
-            <artifactId>portal-impl</artifactId>
-            <version>6.1.0</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -61,29 +45,22 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            org.aperteworkflow.contrib.document.providers.liferay,
+                            org.aperteworkflow.contrib.document.providers.googledocs,
                         </Export-Package>
                         <Import-Package>
                             org.osgi.framework,
-                            com.liferay.portal.kernel.exception;version=!,
-                            com.liferay.portlet.documentlibrary;version=!,
-                            com.liferay.portlet.documentlibrary.service;version=!,
-                            com.liferay.portal.service;version=!,
-                            com.liferay.portlet.documentlibrary.model;version=!,
-                            com.liferay.portal.kernel.util;version=!,
-                            com.liferay.portal.model;version=!,
-                            com.liferay.portlet.documentlibrary.util.comparator;version=!,
                             org.apache.commons.collections.comparators;version=!,
                             org.w3c.dom,
                             *;resolution:=optional
                         </Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
-                        <Bundle-SymbolicName>org.aperteworkflow.contrib.document.providers.liferay</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>org.aperteworkflow.contrib.document.providers.googledocs
+                        </Bundle-SymbolicName>
                         <Bundle-Version>0.1</Bundle-Version>
                         <Embed-Directory>lib</Embed-Directory>
                         <Embed-Transitive>true</Embed-Transitive>
                         <Bundle-Activator>
-                            org.aperteworkflow.contrib.document.providers.liferay.LiferayDocumentProviderManagerActivator
+                            org.aperteworkflow.contrib.document.providers.googledocs.GoogleDocsDocumentProviderManagerActivator
                         </Bundle-Activator>
                     </instructions>
                 </configuration>
@@ -91,6 +68,4 @@
 
         </plugins>
     </build>
-
-
 </project>

@@ -72,9 +72,6 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
             if (kv.length == 2)
                 map.put(kv[0], kv[1]);
         }
-
-//        TODO: parse documentProviderConfig
-
         return map;
     }
 
@@ -82,7 +79,6 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
         StringBuilder sb = new StringBuilder();
         sb.append(createProperty(DocumentProvider.ATOM_URL, "http://pirx:8080/nuxeo/atom/cmis"));
         sb.append(createProperty(DocumentProvider.FOLDER_NAME, processInstance.getInternalId()));
-//        sb.append(createProperty(DocumentProvider.FOLDER_NAME, "12345"));
         sb.append(createProperty(DocumentProvider.NEW_FOLDER_PREFIX, ""));
         sb.append(createProperty(DocumentProvider.PASS, "Administrator"));
         sb.append(createProperty(DocumentProvider.REPOSITORY_ID, "default"));
@@ -91,7 +87,6 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
         sb.append(createProperty(DocumentProvider.GROUP_ID, "10180"));
         sb.append(createProperty(DocumentProvider.LOGIN, login));
         sb.append(createProperty(DocumentProvider.COMPANY_ID, "" + companyId));
-//        sb.append(createProperty(DocumentProvider.LOGIN, login));
         return sb.toString();
     }
 
