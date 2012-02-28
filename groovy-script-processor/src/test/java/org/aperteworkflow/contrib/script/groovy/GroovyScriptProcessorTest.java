@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,18 +21,19 @@ public class GroovyScriptProcessorTest {
     @Test
     public void testScriptLoading() throws Exception {
         GroovyScriptProcessor gsp = new GroovyScriptProcessor();
-        String scriptCode = IOUtils.toString(getClass().getResourceAsStream("/test.groovy"));
-        long t1 = System.currentTimeMillis();
-        gsp.configure(null, scriptCode);
-        long t2 = System.currentTimeMillis();
+        InputStream scriptCode = getClass().getResourceAsStream("/test.groovy");
         Map map = new HashMap();
         map.put("name", "World");
         long t3 = System.currentTimeMillis();
-        gsp.processFields(map);
+        gsp.process(map, scriptCode);
         long t4 = System.currentTimeMillis();
-        System.out.println("Configuration time: " + (t2-t1));
         System.out.println("Execution time: " + (t4-t3));
-        System.out.println(map.get("name"));
+
+        scriptCode = getClass().getResourceAsStream("/test.groovy");
+        long t5 = System.currentTimeMillis();
+        gsp.process(map, scriptCode);
+        long t6 = System.currentTimeMillis();
+        System.out.println("Execution time (2nd): " + (t6-t5));
 
 
     }

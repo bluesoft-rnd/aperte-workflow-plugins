@@ -1,9 +1,12 @@
 package org.aperteworkflow.contrib.script.groovy;
 
 import groovy.lang.*;
-import groovy.util.GroovyScriptEngine;
 import org.aperteworkflow.scripting.ScriptProcessor;
+import org.aperteworkflow.scripting.ScriptValidationException;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Map;
 
 /**
@@ -14,24 +17,20 @@ import java.util.Map;
  */
 public class GroovyScriptProcessor implements ScriptProcessor{
 
-    private Script script;
 
     @Override
-    public void processFields(Map<String, Object> fields) throws Exception {
-        Binding binding = new Binding(fields);
-        script.setBinding(binding);
-        script.run();
+    public Map<String, Object> process(Map<String, Object> vars, InputStream script) throws Exception {
+        Binding binding = new Binding(vars);
+        GroovyShell shell = new GroovyShell(binding);
+        Reader reader = new InputStreamReader(script, "UTF-8");
+        Object evaluate = shell.evaluate(reader);
+        if(!(evaluate instanceof Map))
+            return null;
+        return (Map) evaluate;
     }
 
     @Override
-    public void configure(String url, String code)  {
-        try {
-            GroovyClassLoader gcl = new GroovyClassLoader();
-            Class scriptClass = gcl.parseClass(code);
-            script = (Script) scriptClass.newInstance();
-        } catch (Exception e) {
-            throw new GroovyRuntimeException(e);
-        }
-
+    public void validate(InputStream script) throws ScriptValidationException {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
