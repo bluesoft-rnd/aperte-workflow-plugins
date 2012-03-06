@@ -21,37 +21,37 @@ public class DocumentProviderManagerActivator implements BundleActivator {
         serviceRegistration = bundleContext.registerService(DocumentProviderRegistry.class.getName(),
                 registry,
                 null);
-        bundleContext.addBundleListener(new BundleListener() {
-
-            @Override
-            public void bundleChanged(BundleEvent event) {
-                processBundleExtensions(event.getBundle(),
-                        event.getType(),
-                        registry);
-            }
-
-            private void processBundleExtensions(Bundle bundle, int state, DocumentProviderRegistry registry) {
-                String muleCfgs = (String) bundle.getHeaders().get("Doc-Provider-Config-Files");
-                if (hasText(muleCfgs)) {
-                    String[] names = muleCfgs.split(",");
-                    for (String name : names) {
-                        name = name.trim();
-                        if (state == BundleEvent.STARTED) {
-                            try {
-//TODO: what here?
-
-                            } catch (Exception e) {
-//                               TODO
-                            }
-
-
-                        }
-                    }
-                }
-            }
-
-        });
-            //TODO bundle listener and manifest property support - as in Mule Plugin
+//        TODO: currently providers register themselves, implement bundle listener!
+//        bundleContext.addBundleListener(new BundleListener() {
+//
+//            @Override
+//            public void bundleChanged(BundleEvent event) {
+//                processBundleExtensions(event.getBundle(),
+//                        event.getType(),
+//                        registry);
+//            }
+//
+//            private void processBundleExtensions(Bundle bundle, int state, DocumentProviderRegistry registry) {
+//                String muleCfgs = (String) bundle.getHeaders().get("Doc-Provider-Config-Files");
+//                if (hasText(muleCfgs)) {
+//                    String[] names = muleCfgs.split(",");
+//                    for (String name : names) {
+//                        name = name.trim();
+//                        if (state == BundleEvent.STARTED) {
+//                            try {
+//                              TODO: load provider class and register it in registry
+//
+//                            } catch (Exception e) {
+////                          TODO: exception
+//                            }
+//
+//
+//                        }
+//                    }
+//                }
+//            }
+//
+//        });
         }
 
         @Override

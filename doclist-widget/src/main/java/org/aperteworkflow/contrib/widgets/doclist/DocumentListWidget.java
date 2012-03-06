@@ -4,7 +4,6 @@ import com.vaadin.Application;
 import com.vaadin.terminal.StreamResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
-import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.aperteworkflow.contrib.document.providers.manager.Document;
 import org.aperteworkflow.contrib.document.providers.manager.DocumentImpl;
 import org.aperteworkflow.contrib.document.providers.manager.DocumentProvider;
@@ -41,37 +40,35 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
         ProcessToolVaadinWidget {
 
     @AutoWiredProperty
-    private String rootFolderPath = "/docs";
+    private String rootFolderPath;
 
     @AutoWiredProperty
-    private String subFolder = "subFolder";
+    private String subFolder;
 
     @AutoWiredProperty
-    private String newFolderPrefix = "/aw_";
+    private String newFolderPrefix;
 
     @AutoWiredProperty
-    private boolean required = false;
-
-    private VerticalLayout vl;
-    private Component documentListComponent;
-
-    private ProcessInstance processInstance;
-
-    @AutoWiredProperty
-    private String documentProviderName = "cmis";
-
-    private DocumentProviderRegistry providerRegistry;
-
-    private Map<String, String> properties = new HashMap<String, String>();
+    private String documentProviderName;
 
     @AutoWiredProperty
     private String repositoryAtomUrl;
+
     @AutoWiredProperty
     private String repositoryId;
+
     @AutoWiredProperty
     private String repositoryPassword;
+
     @AutoWiredProperty
     private String repositoryUser;
+
+    private VerticalLayout vl;
+
+    private Component documentListComponent;
+    private ProcessInstance processInstance;
+    private DocumentProviderRegistry providerRegistry;
+    private Map<String, String> properties = new HashMap<String, String>();
 
     private String login;
 
@@ -195,8 +192,8 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
                                 byte[] bytes = toByteArray();
                                 DocumentImpl ud = new DocumentImpl(filename, filename, bytes);
                                 Map<String, String> properties = ud.getAttributes();
-                                properties.put(PropertyIds.NAME, filename);
-                                properties.put(PropertyIds.LAST_MODIFIED_BY, login);
+//                                properties.put(PropertyIds.NAME, filename);
+//                                properties.put(PropertyIds.LAST_MODIFIED_BY, login);
                                 getProvider().uploadDocument(ud);
                                 reload();
                             }
@@ -219,46 +216,12 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
 
         private Document doc;
 
-//        @Override
-//        public void attach() {
-//            super.attach();
-//            resource = new StreamResource(new StreamResource.StreamSource() {
-//                @Override
-//                public InputStream getStream() {
-//                    return new ByteArrayInputStream(DocumentComponent.this.doc.getContent());
-//                }
-//            }, doc.getFilename(), getApplication());
-//
-//            if (popup) {
-//                getApplication().getMainWindow().open(resource, "_blank");
-//            }
-//        }
-
         private DocumentComponent(Document doc) {
             this.doc = doc;
             setSpacing(true);
             setWidth("100%");
 
-            boolean popup = false;
             String name = doc.getFilename();
-
-//            TODO: What is 'popup'?
-
-//            if (name.contains("__POPUP_ONCE__")) {
-//                popup = true;
-//                name = name.replaceFirst("__POPUP_ONCE__", "");
-//                Map<String, Object> map = new HashMap<String, Object>();
-//                map.put(PropertyIds.NAME, name);
-//                co.updateProperties(map, true);
-//            } else if (name.contains("__POPUP_ALWAYS__")) {
-//                popup = true;
-//                name = name.replaceFirst("__POPUP_ALWAYS__", "");
-//            }
-//
-//            if(hideMatching != null && !"".equals(hideMatching) && name.matches(".*"+hideMatching+".*")){
-//                continue;
-//            }
-
 
             Label nameLabel = new Label(name);
             nameLabel.setWidth("100%");
@@ -304,8 +267,8 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
                     final byte[] bytes = toByteArray();
                     DocumentImpl ud = new DocumentImpl(filename, filename, bytes);
                     Map<String, String> properties = ud.getAttributes();
-                    properties.put(PropertyIds.NAME, filename);
-                    properties.put(PropertyIds.LAST_MODIFIED_BY, login);
+//                    properties.put(PropertyIds.NAME, filename);
+//                    properties.put(PropertyIds.LAST_MODIFIED_BY, login);
                     getProvider().uploadDocument(ud);
                     reload();
                 }
