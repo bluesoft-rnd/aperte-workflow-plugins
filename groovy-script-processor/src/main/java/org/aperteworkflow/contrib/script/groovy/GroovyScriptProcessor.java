@@ -7,6 +7,7 @@ import org.aperteworkflow.scripting.ScriptValidationException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -31,6 +32,13 @@ public class GroovyScriptProcessor implements ScriptProcessor{
 
     @Override
     public void validate(InputStream script) throws ScriptValidationException {
-        //To change body of implemented methods use File | Settings | File Templates.
+        try {
+            GroovyShell shell = new GroovyShell();
+            Reader reader = new InputStreamReader(script, "UTF-8");
+            shell.parse(reader);
+        } catch (Exception e) {
+            throw new ScriptValidationException(e.getMessage());
+        }
+
     }
 }
