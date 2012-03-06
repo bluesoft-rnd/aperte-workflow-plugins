@@ -9,24 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>googledocs-document-provider</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>drools-script-processor</artifactId>
     <packaging>bundle</packaging>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.aperteworkflow</groupId>
-            <artifactId>integration-interface</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <artifactId>document-provider-registry</artifactId>
-            <groupId>org.aperteworkflow.contrib</groupId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+    <version>1.0-SNAPSHOT</version>
 
     <build>
         <plugins>
@@ -47,23 +32,20 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            org.aperteworkflow.contrib.document.providers.googledocs,
+                            org.aperteworkflow.contrib.script.drools
                         </Export-Package>
                         <Import-Package>
-                            org.osgi.framework,
                             org.apache.commons.collections.comparators;version=!,
+                            org.aperteworkflow.scripting;version=!,
                             org.w3c.dom,
                             *;resolution:=optional
                         </Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
-                        <Bundle-SymbolicName>org.aperteworkflow.contrib.document.providers.googledocs
-                        </Bundle-SymbolicName>
+                        <Bundle-SymbolicName>org.aperteworkflow.contrib.script.drools</Bundle-SymbolicName>
                         <Bundle-Version>0.1</Bundle-Version>
                         <Embed-Directory>lib</Embed-Directory>
                         <Embed-Transitive>true</Embed-Transitive>
-                        <Bundle-Activator>
-                            org.aperteworkflow.contrib.document.providers.googledocs.GoogleDocsDocumentProviderManagerActivator
-                        </Bundle-Activator>
+                        <Script-Processor-Classes>org.aperteworkflow.contrib.script.drools.DroolsScriptProcessor</Script-Processor-Classes>
                     </instructions>
                 </configuration>
             </plugin>

@@ -50,7 +50,7 @@
         <dependency>
             <groupId>pl.net.bluesoft</groupId>
             <artifactId>util</artifactId>
-            <version>1.2</version>
+            <version>1.2.1</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
