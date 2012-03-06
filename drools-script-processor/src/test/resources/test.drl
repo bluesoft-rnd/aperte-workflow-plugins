@@ -1,0 +1,20 @@
+package org.aperteworkflow.contrib.script.drools
+
+import java.util.Map
+
+
+rule "Rule 1"
+	when
+		data : Map(this["var"] == "world")
+	then
+		System.out.println("Hello " + data.get("var"));
+		data.put("var", "Aperte Workflow");
+	end
+
+rule "Rule 2"
+    when
+		data : Map(this["var"] == "Aperte Workflow")
+	then
+		System.out.println("Bye");
+
+	end

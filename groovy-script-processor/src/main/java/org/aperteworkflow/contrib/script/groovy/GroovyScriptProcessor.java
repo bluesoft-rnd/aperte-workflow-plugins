@@ -1,14 +1,16 @@
 package org.aperteworkflow.contrib.script.groovy;
 
-import groovy.lang.*;
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import org.aperteworkflow.scripting.ScriptProcessor;
 import org.aperteworkflow.scripting.ScriptValidationException;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,8 +18,9 @@ import java.util.Map;
  * Date: 2/24/12
  * Time: 11:27 AM
  */
-public class GroovyScriptProcessor implements ScriptProcessor{
+public class GroovyScriptProcessor implements ScriptProcessor {
 
+    private Logger logger = Logger.getLogger(GroovyScriptProcessor.class.getName());
 
     @Override
     public Map<String, Object> process(Map<String, Object> vars, InputStream script) throws Exception {
@@ -25,7 +28,7 @@ public class GroovyScriptProcessor implements ScriptProcessor{
         GroovyShell shell = new GroovyShell(binding);
         Reader reader = new InputStreamReader(script, "UTF-8");
         Object evaluate = shell.evaluate(reader);
-        if(!(evaluate instanceof Map))
+        if (!(evaluate instanceof Map))
             return null;
         return (Map) evaluate;
     }
@@ -37,6 +40,7 @@ public class GroovyScriptProcessor implements ScriptProcessor{
             Reader reader = new InputStreamReader(script, "UTF-8");
             shell.parse(reader);
         } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
             throw new ScriptValidationException(e.getMessage());
         }
 
