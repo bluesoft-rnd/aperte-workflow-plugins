@@ -35,7 +35,7 @@ public class DroolsScriptProcessor implements ScriptProcessor {
         session = kbase.newStatelessKnowledgeSession();
 
         if (session != null)
-            session.execute(stringObjectMap);
+            session.execute(stringObjectMap.values());
 
         return stringObjectMap;
     }

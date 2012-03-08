@@ -1,19 +1,19 @@
 package org.aperteworkflow.contrib.script.drools
 
 import java.util.Map
-
+import org.aperteworkflow.contrib.script.drools.DroolsScriptProcessorTest.Pojo
 
 rule "Rule 1"
 	when
-		data : Map(this["var"] == "world")
+		data : Pojo(field == "world")
 	then
-		System.out.println("Hello " + data.get("var"));
-		data.put("var", "Aperte Workflow");
+		System.out.println("Hello " + data.getField());
+		data.setField("Aperte Workflow");
 	end
 
 rule "Rule 2"
     when
-		data : Map(this["var"] == "Aperte Workflow")
+		data : Pojo(field != "world")
 	then
 		System.out.println("Bye");
 

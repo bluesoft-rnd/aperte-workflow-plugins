@@ -19,10 +19,28 @@ public class DroolsScriptProcessorTest {
         DroolsScriptProcessor dsp = new DroolsScriptProcessor();
         InputStream stream = dsp.getClass().getResourceAsStream("/test.drl");
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("var", "world");
+        map.put("var", new Pojo("world"));
         dsp.process(map, stream);
-        System.out.println("Hello " + map.get("var"));
+        System.out.println("Hello " + ((Pojo)map.get("var")).getField());
         stream = dsp.getClass().getResourceAsStream("/test.drl");
         dsp.process(map, stream);
+    }
+    
+    public static class Pojo{
+
+        public Pojo(String field) {
+            this.field = field;
+        }
+
+        public String getField() {
+            return field;
+        }
+
+        public void setField(String field) {
+            this.field = field;
+        }
+
+        private String field;
+        
     }
 }
