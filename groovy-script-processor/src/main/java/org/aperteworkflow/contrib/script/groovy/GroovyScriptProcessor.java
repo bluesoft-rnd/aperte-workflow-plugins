@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class GroovyScriptProcessor implements ScriptProcessor {
 
-    private Logger logger = Logger.getLogger(GroovyScriptProcessor.class.getName());
+    private static final Logger logger = Logger.getLogger(GroovyScriptProcessor.class.getName());
 
     @Override
     public Map<String, Object> process(Map<String, Object> vars, InputStream script) throws Exception {

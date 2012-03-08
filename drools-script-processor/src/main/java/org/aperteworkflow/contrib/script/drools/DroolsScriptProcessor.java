@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class DroolsScriptProcessor implements ScriptProcessor {
 
-    private Logger logger = Logger.getLogger(DroolsScriptProcessor.class.getName());
+    private static final Logger logger = Logger.getLogger(DroolsScriptProcessor.class.getName());
 
     private KnowledgeBase kbase;
     private StatelessKnowledgeSession session;
