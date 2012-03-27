@@ -25,7 +25,7 @@
             <groupId>org.aperteworkflow</groupId>
             <artifactId>cmis-interface</artifactId>
             <version>1.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <artifactId>document-provider-registry</artifactId>
@@ -38,7 +38,7 @@
             <groupId>org.apache.chemistry.opencmis</groupId>
             <artifactId>chemistry-opencmis-client-api</artifactId>
             <version>0.6.0</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>

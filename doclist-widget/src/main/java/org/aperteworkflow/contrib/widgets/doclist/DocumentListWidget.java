@@ -338,4 +338,11 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
         this.repositoryUser = repositoryUser;
     }
 
+    public String getDocumentProviderName() {
+        return documentProviderName;
+    }
+
+    public void setDocumentProviderName(String documentProviderName) {
+        this.documentProviderName = documentProviderName;
+    }
 }
