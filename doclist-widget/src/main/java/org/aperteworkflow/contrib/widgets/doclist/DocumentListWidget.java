@@ -8,6 +8,7 @@ import org.aperteworkflow.contrib.document.providers.manager.Document;
 import org.aperteworkflow.contrib.document.providers.manager.DocumentImpl;
 import org.aperteworkflow.contrib.document.providers.manager.DocumentProvider;
 import org.aperteworkflow.contrib.document.providers.manager.DocumentProviderRegistry;
+import org.aperteworkflow.util.vaadin.VaadinUtility;
 import pl.net.bluesoft.rnd.processtool.ProcessToolContext;
 import pl.net.bluesoft.rnd.processtool.bpm.ProcessToolBpmSession;
 import pl.net.bluesoft.rnd.processtool.model.ProcessInstance;
@@ -19,12 +20,15 @@ import pl.net.bluesoft.rnd.processtool.ui.widgets.ProcessToolWidget;
 import pl.net.bluesoft.rnd.processtool.ui.widgets.annotations.*;
 import pl.net.bluesoft.rnd.processtool.ui.widgets.impl.BaseProcessToolWidget;
 import pl.net.bluesoft.rnd.util.i18n.I18NSource;
+import pl.net.bluesoft.util.lang.StringUtil;
 
 import java.io.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -72,6 +76,8 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
 
     private String login;
 
+    private static final Logger logger = Logger.getLogger(DocumentListWidget.class.getName());
+
     @Override
     public void setContext(ProcessStateConfiguration state, ProcessStateWidget configuration, I18NSource i18NSource,
                            ProcessToolBpmSession bpmSession, Application application, Set<String> permissions, boolean isOwner) {
@@ -79,38 +85,6 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
 
         login = bpmSession.getUserLogin();
     }
-
-//    private Map<String, String> parseProperties() {
-//        HashMap<String, String> map = new HashMap<String, String>();
-//        if(documentProviderConfig == null)
-//            documentProviderConfig = getDefaultConfig();
-//        String[] properties = documentProviderConfig.split(";");
-//        for (String p : properties) {
-//            String[] kv = p.split(KV_SEPARATOR);
-//            if (kv.length == 2)
-//                map.put(kv[0], kv[1]);
-//        }
-//        return map;
-//    }
-//
-//    private String getDefaultConfig() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(createProperty(DocumentProvider.ATOM_URL, "http://pirx:8080/nuxeo/atom/cmis"));
-//        sb.append(createProperty(DocumentProvider.FOLDER_NAME, processInstance.getInternalId()));
-//        sb.append(createProperty(DocumentProvider.NEW_FOLDER_PREFIX, ""));
-//        sb.append(createProperty(DocumentProvider.PASS, "Administrator"));
-//        sb.append(createProperty(DocumentProvider.REPOSITORY_ID, "default"));
-//        sb.append(createProperty(DocumentProvider.ROOT_FOLDER_PATH, "/test/submissions"));
-//        sb.append(createProperty(DocumentProvider.USER, "Administrator"));
-//        sb.append(createProperty(DocumentProvider.GROUP_ID, "10180"));
-//        sb.append(createProperty(DocumentProvider.LOGIN, login));
-//        sb.append(createProperty(DocumentProvider.COMPANY_ID, "" + companyId));
-//        return sb.toString();
-//    }
-
-//    private String createProperty(String key, String value) {
-//        return key + KV_SEPARATOR + value + PROP_SEPARATOR;
-//    }
 
     @Override
     public Collection<String> validateData(ProcessInstance processInstance) {
@@ -138,7 +112,7 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
     @Override
     public Component render() {
         vl = new VerticalLayout();
-        Button refreshDocumentList = new Button(getMessage("pt.ext.cmis.list.refresh"));
+        Button refreshDocumentList = new Button(getMessage("widget.doclist.refresh"));
 //        refreshDocumentList.setIcon(new ClassResource(CmisDocumentListWidget.class, "/img/load-repository.png", getApplication()));
         refreshDocumentList.setImmediate(true);
         refreshDocumentList.setStyleName(BaseTheme.BUTTON_LINK);
@@ -158,52 +132,72 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
             vl.removeComponent(documentListComponent);
         }
         if (hasPermission("EDIT", "VIEW")) {
-            vl.addComponent(documentListComponent = getDocumentList());
+            documentListComponent = getDocumentList();
+            if(documentListComponent != null)
+                vl.addComponent(documentListComponent);
         }
     }
 
     private Component getDocumentList() {
-        final DocumentProvider documentProvider = getProvider();
-        VerticalLayout vl = new VerticalLayout();
-        vl.setWidth("100%");
-        String path = rootFolderPath + "/" + newFolderPrefix + processInstance.getInternalId();
-        Collection<Document> documents = documentProvider.getDocuments(path);
-        boolean hasAnyDocuments = false;
-        for (Document doc : documents) {
-            hasAnyDocuments = true;
-            vl.addComponent(new DocumentComponent(doc));
-        }
-        if (!hasAnyDocuments) {
-            vl.addComponent(new Label(getI18NSource().getMessage("pt.ext.cmis.list.no-documents")));
-        }
-        if (hasPermission("EDIT")) {
-            if (!hasAnyDocuments) {
-                vl.addComponent(new Label(getI18NSource().getMessage("pt.ext.cmis.list.upload")));
-                Upload upload = new Upload();
-                upload.setImmediate(true);
-                upload.setButtonCaption(getI18NSource().getMessage("pt.ext.cmis.list.upload.button"));
-                upload.setReceiver(new Upload.Receiver() {
-                    @Override
-                    public OutputStream receiveUpload(final String filename, final String MIMEType) {
-                        return new ByteArrayOutputStream() {
-                            @Override
-                            public void close() throws IOException {
-                                super.close();
-                                byte[] bytes = toByteArray();
-                                DocumentImpl ud = new DocumentImpl(filename, filename, bytes);
-                                Map<String, String> properties = ud.getAttributes();
-//                                properties.put(PropertyIds.NAME, filename);
-//                                properties.put(PropertyIds.LAST_MODIFIED_BY, login);
-                                getProvider().uploadDocument(ud);
-                                reload();
-                            }
-                        };
-                    }
-                });
-                vl.addComponent(upload);
+        VerticalLayout layout = null;
+        try {
+            final DocumentProvider documentProvider = getProvider();
+            layout = new VerticalLayout();
+            layout.setWidth("100%");
+            Collection<Document> documents = documentProvider.getDocuments(getPath());
+            boolean hasAnyDocuments = false;
+            for (Document doc : documents) {
+                hasAnyDocuments = true;
+                layout.addComponent(new DocumentComponent(doc));
             }
+            if (!hasAnyDocuments) {
+                layout.addComponent(new Label(getI18NSource().getMessage("widget.doclist.no-documents")));
+            }
+            if (hasPermission("EDIT")) {
+                if (!hasAnyDocuments) {
+                    layout.addComponent(new Label(getI18NSource().getMessage("widget.doclist.upload")));
+                    Upload upload = new Upload();
+                    upload.setImmediate(true);
+                    upload.setButtonCaption(getI18NSource().getMessage("widget.doclist.upload.button"));
+                    upload.setReceiver(new Upload.Receiver() {
+                        @Override
+                        public OutputStream receiveUpload(final String filename, final String MIMEType) {
+                            return new ByteArrayOutputStream() {
+                                @Override
+                                public void close() throws IOException {
+                                    super.close();
+                                    byte[] bytes = toByteArray();
+                                    DocumentImpl ud = new DocumentImpl(filename, filename, bytes);
+                                    Map<String, String> properties = ud.getAttributes();
+                                    getProvider().uploadDocument(ud);
+                                    reload();
+                                }
+                            };
+                        }
+                    });
+                    layout.addComponent(upload);
+                }
+            }
+            return layout;
+        } catch (Exception e) {
+            handleException(getMessage("widget.doclist.error"), e);
+            layout = new VerticalLayout();
+            layout.addComponent(new Label(getI18NSource().getMessage("widget.doclist.no-documents")));
         }
-        return vl;
+        return layout;
+    }
+
+    private String getPath() {
+        String path = rootFolderPath + "/" + newFolderPrefix + processInstance.getInternalId();
+        if(StringUtil.hasText(subFolder))
+            path += "/" +subFolder;
+        return path;
+    }
+
+    protected void handleException(String message, Exception e) {
+        logger.log(Level.SEVERE, message, e);
+        VaadinUtility.validationNotification(getApplication(), i18NSource, message + "<br/>" + getMessage(e
+                .getMessage()));
     }
 
 
@@ -235,13 +229,13 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
             }, doc.getFilename(), DocumentListWidget.this.getApplication());
             resource.setCacheTime(-1);
 
-            Link downloadLink = new Link(getI18NSource().getMessage("pt.ext.cmis.list.document.download"), resource);
+            Link downloadLink = new Link(getI18NSource().getMessage("widget.doclist.document.download"), resource);
             downloadLink.setTargetName("_blank");
 
             addComponent(downloadLink);
             if (hasPermission("EDIT")) {
                 Upload upload = new Upload();
-                upload.setButtonCaption(getI18NSource().getMessage("pt.ext.cmis.list.update.button"));
+                upload.setButtonCaption(getI18NSource().getMessage("widget.doclist.update.button"));
                 upload.setReceiver(new UpdateReceiver(doc));
                 upload.setImmediate(true);
 
@@ -267,8 +261,6 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
                     final byte[] bytes = toByteArray();
                     DocumentImpl ud = new DocumentImpl(filename, filename, bytes);
                     Map<String, String> properties = ud.getAttributes();
-//                    properties.put(PropertyIds.NAME, filename);
-//                    properties.put(PropertyIds.LAST_MODIFIED_BY, login);
                     getProvider().uploadDocument(ud);
                     reload();
                 }
@@ -279,7 +271,12 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
     private DocumentProvider getProvider() {
         providerRegistry = ProcessToolContext.Util.getThreadProcessToolContext().getRegistry().lookupService(
                 DocumentProviderRegistry.class.getName());
-        return providerRegistry.getProvider(documentProviderName, properties);
+        if(providerRegistry == null)
+            throw new RuntimeException("widget.error.registry.unavailable");
+        DocumentProvider provider = providerRegistry.getProvider(documentProviderName, properties);
+        if(providerRegistry == null)
+            throw new RuntimeException("widget.error.provider.unavailable");
+        return provider;
     }
 
     public String getRootFolderPath() {

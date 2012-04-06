@@ -28,7 +28,6 @@ public class CmisDocumentProvider implements DocumentProvider{
 
     private CmisAtomSessionFacade sessionFacade;
     private Folder mainFolder;
-    private String path;
     private String user;
     private String pass;
     private String atomUrl;
@@ -47,6 +46,7 @@ public class CmisDocumentProvider implements DocumentProvider{
         newFolderPrefix = properties.get(NEW_FOLDER_PREFIX);
         rootFolderPath = properties.get(ROOT_FOLDER_PATH);
         folderName = properties.get(FOLDER_NAME);
+
 
         sessionFacade = new CmisAtomSessionFacade(user, pass, atomUrl, repositoryId);
         mainFolder = sessionFacade.createFolderIfNecessary(newFolderPrefix + folderName,
@@ -69,19 +69,24 @@ public class CmisDocumentProvider implements DocumentProvider{
 
         Collection<Document> docs = new LinkedList<Document>();
         Folder folder = (Folder) sessionFacade.getObjectByPath(absolutePath);
+        if(folder == null)
+            throw  new RuntimeException("Cmis folder not found: " + absolutePath);
 
         ItemIterable<CmisObject> cmisObjectItemIterable = folder.getChildren();
         for (CmisObject co : cmisObjectItemIterable) {
-            docs.add(wrapDocument(co, absolutePath));
+            if(co instanceof org.apache.chemistry.opencmis.client.api.Document){
+                org.apache.chemistry.opencmis.client.api.Document doc = (org.apache.chemistry.opencmis.client.api.Document) co;
+                docs.add(wrapDocument(doc, absolutePath));
+            }
 
         }
         return docs;
     }
 
-    private Document wrapDocument(CmisObject co, String path) {
-        String filename = co.getName();
+    private Document wrapDocument(org.apache.chemistry.opencmis.client.api.Document document, String path) {
+        String filename = document.getName();
         String filePath = path + "/" + filename;
-        InputStream is = ((org.apache.chemistry.opencmis.client.api.Document) co).getContentStream().getStream();
+        InputStream is = document.getContentStream().getStream();
         byte[] content = null;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
