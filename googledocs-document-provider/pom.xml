@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>contrib-plugins</artifactId>
         <groupId>org.aperteworkflow.contrib</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.aperteworkflow.contrib</groupId>
-    <artifactId>doclist-widget</artifactId>
+    <artifactId>googledocs-document-provider</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>doclist-widget</name>
     <packaging>bundle</packaging>
 
     <dependencies>
-
         <dependency>
             <groupId>org.aperteworkflow</groupId>
             <artifactId>integration-interface</artifactId>
@@ -22,22 +21,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin</artifactId>
-            <version>${vaadin.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <artifactId>junit</artifactId>
-            <groupId>junit</groupId>
-            <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <artifactId>document-provider-registry</artifactId>
             <groupId>org.aperteworkflow.contrib</groupId>
             <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope> <!-- provided by OSGi bundle -->
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -50,6 +37,7 @@
                 <configuration>
                     <useDefaultManifestFile>true</useDefaultManifestFile>
                 </configuration>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -59,24 +47,27 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            org.aperteworkflow.contrib.widgets.doclist
+                            org.aperteworkflow.contrib.document.providers.googledocs,
                         </Export-Package>
                         <Import-Package>
-                            org.aperteworkflow.contrib.document.providers.manager;version=!,
+                            org.osgi.framework,
+                            org.apache.commons.collections.comparators;version=!,
+                            org.w3c.dom,
                             *;resolution:=optional
                         </Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
-                        <Bundle-SymbolicName>org.aperteworkflow.contrib.widgets.doclist</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>org.aperteworkflow.contrib.document.providers.googledocs
+                        </Bundle-SymbolicName>
                         <Bundle-Version>0.1</Bundle-Version>
                         <Embed-Directory>lib</Embed-Directory>
                         <Embed-Transitive>true</Embed-Transitive>
-                        <ProcessTool-Widget-Enhancement>org.aperteworkflow.contrib.widgets.doclist.DocumentListWidget</ProcessTool-Widget-Enhancement>
-                        <ProcessTool-I18N-Property>doclist-messages</ProcessTool-I18N-Property>
+                        <Bundle-Activator>
+                            org.aperteworkflow.contrib.document.providers.googledocs.GoogleDocsDocumentProviderManagerActivator
+                        </Bundle-Activator>
                     </instructions>
                 </configuration>
             </plugin>
 
         </plugins>
     </build>
-
 </project>

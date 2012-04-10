@@ -1,0 +1,20 @@
+package org.aperteworkflow.contrib.script.drools
+
+import java.util.Map
+import org.aperteworkflow.contrib.script.drools.DroolsScriptProcessorTest.Pojo
+
+rule "Rule 1"
+	when
+		data : Pojo(field == "world")
+	then
+		System.out.println("Hello " + data.getField());
+		data.setField("Aperte Workflow");
+	end
+
+rule "Rule 2"
+    when
+		data : Pojo(field != "world")
+	then
+		System.out.println("Bye");
+
+	end

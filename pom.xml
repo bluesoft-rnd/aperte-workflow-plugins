@@ -6,7 +6,7 @@
     <parent>
         <artifactId>aperteworkflow-core</artifactId>
         <groupId>org.aperteworkflow</groupId>
-        <version>0.1</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <groupId>org.aperteworkflow.contrib</groupId>
@@ -15,7 +15,7 @@
 
     <packaging>pom</packaging>
     <artifactId>contrib-plugins</artifactId>
-    <version>0.1</version>
+    <version>1.0-SNAPSHOT</version>
 		
     <!--
 <properties>
@@ -33,6 +33,11 @@
         <module>document-provider-registry</module>
         <module>doclist-widget</module>
         <module>cmis-document-provider</module>
+        <module>liferay-6.1-document-provider</module>
+        <module>liferay-6.0-document-provider</module>
+        <module>googledocs-document-provider</module>
+        <module>drools-script-processor</module>
+        <module>groovy-script-processor</module>
     </modules>
 
     <dependencies>
@@ -45,7 +50,7 @@
         <dependency>
             <groupId>pl.net.bluesoft</groupId>
             <artifactId>util</artifactId>
-            <version>1.2</version>
+            <version>1.2.1</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>

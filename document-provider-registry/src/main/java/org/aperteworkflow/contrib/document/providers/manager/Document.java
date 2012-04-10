@@ -13,7 +13,10 @@ public interface Document {
     String getPath();
     String getFilename();
     Map<String,String> getAttributes();
-    void setContent(InputStream is);
-    InputStream getContent();
+    void setContent(byte[] content);
+    byte[] getContent();
+    String getMimeType();
     //TODO more getters and setters and accessors
+
+
 }

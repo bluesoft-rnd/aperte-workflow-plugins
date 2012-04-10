@@ -32,4 +32,7 @@ public class DocumentProviderRegistry {
 
     }
 
+    public void unregisterProvider(String name) {
+        providerMap.remove(name);
+    }
 }
