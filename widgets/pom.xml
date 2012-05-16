@@ -7,17 +7,14 @@
         <version>1.2-SNAPSHOT</version>
     </parent>
 
-    <name>Aperte Workflow Samples</name>
+    <name>Aperte Workflow Plugins</name>
 
     <packaging>pom</packaging>
-    <artifactId>samples</artifactId>
+    <artifactId>widgets</artifactId>
 
     <modules>
-        <module>activiti-sample-process</module>
-        <module>liferay-poc-process</module>
-        <module>sample-mule-step</module>
-        <module>mule-flightsearch-sample</module>
-        <module>mule-attachment-sample</module>
+        <module>doclist-widget</module>
+        <module>userdata-widget</module>
     </modules>
 
     <dependencies>

@@ -2,22 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>contrib-plugins</artifactId>
+        <artifactId>plugins</artifactId>
         <groupId>org.aperteworkflow.contrib</groupId>
         <version>1.2-SNAPSHOT</version>
     </parent>
 
-    <name>Aperte Workflow Samples</name>
+    <name>Aperte Workflow Plugins</name>
 
     <packaging>pom</packaging>
-    <artifactId>samples</artifactId>
+    <artifactId>document-providers</artifactId>
 
     <modules>
-        <module>activiti-sample-process</module>
-        <module>liferay-poc-process</module>
-        <module>sample-mule-step</module>
-        <module>mule-flightsearch-sample</module>
-        <module>mule-attachment-sample</module>
+        <module>cmis-document-provider</module>
+        <module>googledocs-document-provider</module>
+        <module>liferay-6.0-document-provider</module>
+        <module>liferay-6.1-document-provider</module>
     </modules>
 
     <dependencies>
