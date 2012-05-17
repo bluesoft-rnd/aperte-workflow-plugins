@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>widgets</artifactId>
+        <groupId>org.aperteworkflow.contrib</groupId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>doclist-widget</artifactId>
+    <version>1.2-SNAPSHOT</version>
+    <name>doclist-widget</name>
+    <packaging>bundle</packaging>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.aperteworkflow</groupId>
+            <artifactId>integration-interface</artifactId>
+            <version>1.2-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin</artifactId>
+            <version>${vaadin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <artifactId>junit</artifactId>
+            <groupId>junit</groupId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <artifactId>document-provider-registry</artifactId>
+            <groupId>org.aperteworkflow</groupId>
+            <version>1.2-SNAPSHOT</version>
+            <scope>provided</scope> <!-- provided by OSGi bundle -->
+        </dependency>
+        <dependency>
+            <groupId>org.aperteworkflow</groupId>
+            <artifactId>gui-commons</artifactId>
+            <version>1.2-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <useDefaultManifestFile>true</useDefaultManifestFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <version>2.1.0</version>
+                <configuration>
+                    <instructions>
+                        <Export-Package>
+                            org.aperteworkflow.contrib.widgets.doclist
+                        </Export-Package>
+                        <Import-Package>
+                            org.aperteworkflow.contrib.document.providers.manager;version=!,
+                            *;resolution:=optional
+                        </Import-Package>
+                        <Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
+                        <Bundle-SymbolicName>org.aperteworkflow.contrib.widgets.doclist</Bundle-SymbolicName>
+                        <Bundle-Version>0.1</Bundle-Version>
+                        <ProcessTool-Widget-Enhancement>org.aperteworkflow.contrib.widgets.doclist.DocumentListWidget</ProcessTool-Widget-Enhancement>
+                        <ProcessTool-I18N-Property>doclist-messages</ProcessTool-I18N-Property>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

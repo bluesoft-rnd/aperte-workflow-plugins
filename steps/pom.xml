@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>contrib-plugins</artifactId>
+        <groupId>org.aperteworkflow.contrib</groupId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+
+    <name>Aperte Workflow Plugins</name>
+
+    <packaging>pom</packaging>
+    <artifactId>steps</artifactId>
+
+    <modules>
+        <module>drools-step</module>
+        <module>log-step</module>
+        <module>report-step</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+    </dependencies>
+
+</project>
