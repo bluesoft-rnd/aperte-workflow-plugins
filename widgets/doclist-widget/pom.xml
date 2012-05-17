@@ -4,11 +4,11 @@
     <parent>
         <artifactId>widgets</artifactId>
         <groupId>org.aperteworkflow.contrib</groupId>
-        <version>1.1</version>
+        <version>1.1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>doclist-widget</artifactId>
-    <version>1.1</version>
+    <version>1.1.1-SNAPSHOT</version>
     <name>doclist-widget</name>
     <packaging>bundle</packaging>
 
