@@ -16,13 +16,4 @@
         <module>drools-script-processor</module>
         <module>groovy-script-processor</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-    </dependencies>
-
 </project>

@@ -1,9 +1,7 @@
 package org.aperteworkflow.contrib.script.groovy;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
