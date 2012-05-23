@@ -4,7 +4,7 @@
     <parent>
         <artifactId>samples</artifactId>
         <groupId>org.aperteworkflow.contrib</groupId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>mule-attachment-sample</artifactId>
@@ -26,15 +26,6 @@
                         <Bundle-Description>org.aperteworkflow.sample.mulestep.attachment</Bundle-Description>
                         <Mule-Config-Files>/mule-attachment-sample.xml</Mule-Config-Files>
                     </instructions>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <useDefaultManifestFile>true</useDefaultManifestFile>
                 </configuration>
             </plugin>
         </plugins>

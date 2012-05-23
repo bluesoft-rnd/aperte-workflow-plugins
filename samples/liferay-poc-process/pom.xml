@@ -4,7 +4,7 @@
     <parent>
         <artifactId>samples</artifactId>
         <groupId>org.aperteworkflow.contrib</groupId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>liferay-poc-process</artifactId>
@@ -14,21 +14,7 @@
         <dependency>
             <groupId>org.aperteworkflow</groupId>
             <artifactId>integration-interface</artifactId>
-            <version>1.1.1</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <useDefaultManifestFile>true</useDefaultManifestFile>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

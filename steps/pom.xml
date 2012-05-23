@@ -4,7 +4,7 @@
     <parent>
         <artifactId>contrib-plugins</artifactId>
         <groupId>org.aperteworkflow.contrib</groupId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
 
     <name>Aperte Workflow Plugins</name>
@@ -17,13 +17,5 @@
         <module>log-step</module>
         <module>report-step</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-    </dependencies>
 
 </project>
