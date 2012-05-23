@@ -15,6 +15,7 @@
         <dependency>
             <artifactId>cmis-interface</artifactId>
             <groupId>org.aperteworkflow</groupId>
+            <version>${aperte-workflow-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.aperteworkflow</groupId>

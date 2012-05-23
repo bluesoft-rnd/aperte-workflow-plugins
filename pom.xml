@@ -48,12 +48,6 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.aperteworkflow</groupId>
-                <artifactId>cmis-interface</artifactId>
-                <version>${aperte-workflow-core.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <artifactId>document-provider-registry</artifactId>
                 <groupId>org.aperteworkflow</groupId>
                 <version>${aperte-workflow-core.version}</version>
