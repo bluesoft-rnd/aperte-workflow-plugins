@@ -21,6 +21,7 @@ import pl.net.bluesoft.rnd.processtool.ui.widgets.annotations.*;
 import pl.net.bluesoft.rnd.processtool.ui.widgets.impl.BaseProcessToolWidget;
 import pl.net.bluesoft.rnd.util.i18n.I18NSource;
 import pl.net.bluesoft.util.lang.StringUtil;
+import pl.net.bluesoft.rnd.processtool.model.BpmTask;
 
 import java.io.*;
 import java.util.Collection;
@@ -86,7 +87,7 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
         login = bpmSession.getUserLogin();
     }
 
-    @Override
+    /*@Override
     public Collection<String> validateData(ProcessInstance processInstance) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -107,8 +108,24 @@ public class DocumentListWidget extends BaseProcessToolWidget implements Process
         properties.put(DocumentProvider.ROOT_FOLDER_PATH, rootFolderPath);
         properties.put(DocumentProvider.NEW_FOLDER_PREFIX, newFolderPrefix);
         properties.put(DocumentProvider.FOLDER_NAME, processInstance.getInternalId());
-    }
+    }*/
 
+    @Override
+	public Collection<String> validateData(BpmTask task, boolean skipRequired) {
+		//todo
+		return null;
+	}
+	
+    @Override
+	public void saveData(BpmTask task) {
+		//todo
+	}
+
+    @Override
+	public void loadData(BpmTask task) {
+		//todo
+	}
+	
     @Override
     public Component render() {
         vl = new VerticalLayout();
