@@ -15,6 +15,7 @@ import pl.net.bluesoft.rnd.processtool.model.ProcessInstance;
 import pl.net.bluesoft.rnd.processtool.model.config.ProcessStateConfiguration;
 import pl.net.bluesoft.rnd.processtool.model.config.ProcessStateWidget;
 import pl.net.bluesoft.rnd.processtool.ui.widgets.ProcessToolDataWidget;
+import pl.net.bluesoft.rnd.processtool.ui.widgets.ProcessToolVaadinRenderable;
 import pl.net.bluesoft.rnd.processtool.ui.widgets.ProcessToolVaadinWidget;
 import pl.net.bluesoft.rnd.processtool.ui.widgets.ProcessToolWidget;
 import pl.net.bluesoft.rnd.processtool.ui.widgets.annotations.*;
@@ -42,7 +43,7 @@ import java.util.logging.Logger;
 @ChildrenAllowed(false)
 @WidgetGroup("base-widgets")
 public class DocumentListWidget extends BaseProcessToolWidget implements ProcessToolDataWidget,
-        ProcessToolVaadinWidget {
+        ProcessToolVaadinWidget, ProcessToolVaadinRenderable {
 
     @AutoWiredProperty
     private String rootFolderPath;
